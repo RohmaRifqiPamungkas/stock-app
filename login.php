@@ -5,7 +5,11 @@ require 'config/db_connect.php';
 session_start();
 
 if (isset($_SESSION['login'])) {
-    header('Location: home.php');
+    if ($_SESSION['role'] == 'admin') {
+        header('Location: home.php');
+    } else {
+        header('Location: user_home.php');
+    }
     exit;
 }
 
@@ -14,13 +18,19 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
 
     $sql = "SELECT * FROM login WHERE email='$email' AND password='$password'";
-
     $cek_user = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($cek_user) > 0) {
+        $user_data = mysqli_fetch_assoc($cek_user);
         $_SESSION['login'] = true;
         $_SESSION['email'] = $email;
-        header('Location: home.php');
+        $_SESSION['role'] = $user_data['role'];
+
+        if ($user_data['role'] == 'admin') {
+            header('Location: home.php');
+        } else {
+            header('Location: home_user.php');
+        }
     } else {
         echo "
             <script>
@@ -72,17 +82,15 @@ if (isset($_POST['login'])) {
                                                 <button class="btn btn-dark " style="width: 100%; border-radius: 10px" name="login">Login</button>
                                             </div>
                                         </form>
+                                        <div class="card-footer text-center py-3">
+                                    <div class="small"><a href="register.php">Already have an account? Register!</a></div>
+                                </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </main>
-                <div class="mx-auto mt-5" style="max-width: 600px">
-                    <p class="text-center py-2 mx-2 mb-0 bg-light">
-                        Email : admin@gmail.com ; Password : admin
-                    </p>
-                </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

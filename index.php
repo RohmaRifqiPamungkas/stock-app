@@ -27,6 +27,7 @@
         <div class="ml-4"  style="width: 600px">
             <h1 class="mb-5">Manage Your Stock and Increase Your Revenue</h1>
             <a href="login.php" class="px-4 text-black py-2 text-decoration-none rounded-pill fw-bold" style="background-color: #6495ed">Login here</a>
+            <a href="register.php" class="px-4 text-black py-2 text-decoration-none rounded-pill fw-bold" style="background-color: #6495ed">Register here</a>
         </div>
         <div class="mr-4">
             <img style="width: 100%" src="./images/stock.png" alt="management stock">

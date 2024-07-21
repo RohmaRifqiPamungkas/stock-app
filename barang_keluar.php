@@ -2,13 +2,12 @@
 
 session_start();
 
-if (!isset($_SESSION['login'])) {
+if (!isset($_SESSION['login']) || $_SESSION['role'] != 'admin') {
     header('Location: login.php');
     exit;
 }
 
 require 'get_stok_barang.php';
-
 require 'get_barang_keluar.php';
 
 ?>
